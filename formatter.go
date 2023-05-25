@@ -15,7 +15,7 @@ var SpecialCase []rune = []rune{'ー', ',', '，', '、', '.', '。', '．', '�
 
 func splitText(text string, size int) []string {
 	lines := make([]string, 0)
-	line := ""
+	line := "　"
 	lineLen := 0
 	for _, char := range text {
 		charWidth := utf8.RuneLen(char)
@@ -25,7 +25,7 @@ func splitText(text string, size int) []string {
 		match := slices.Index(SpecialCase, char)
 		if lineLen+charWidth > size && match < 0 {
 			lines = append(lines, line)
-			line = ""
+			line = "　"
 			lineLen = 0
 		}
 		line += string(char)
