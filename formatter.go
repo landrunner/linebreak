@@ -7,7 +7,11 @@ import (
 	"os"
 	"strings"
 	"unicode/utf8"
+
+	"golang.org/x/exp/slices"
 )
+
+var SpecialCase []rune = []rune{'ー', ',', '，', '、', '.', '。', '．', 'ぁ', 'ぃ', 'ぅ', 'ぇ', 'ぉ', 'っ', 'ゃ', 'ゅ', 'ょ', 'ァ', 'ィ', 'ゥ', 'ェ', 'ォ', 'ャ', 'ュ', 'ョ'}
 
 func splitText(text string, size int) []string {
 	lines := make([]string, 0)
@@ -18,7 +22,8 @@ func splitText(text string, size int) []string {
 		if charWidth > 2 {
 			charWidth = 2
 		}
-		if lineLen+charWidth > size {
+		match := slices.Index(SpecialCase, char)
+		if lineLen+charWidth > size && match < 0 {
 			lines = append(lines, line)
 			line = ""
 			lineLen = 0
@@ -31,9 +36,7 @@ func splitText(text string, size int) []string {
 }
 
 func main() {
-	var (
-		n = flag.Int("n", 20, "number of letters per line")
-	)
+	var n = flag.Int("n", 20, "number of letters per line")
 	flag.Parse()
 	numChars := n
 	scanner := bufio.NewScanner(os.Stdin)
