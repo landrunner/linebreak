@@ -1,4 +1,4 @@
-module github.com/landrunner/text-formatter
+module github.com/landrunner/linebreak
 
 go 1.20
 

@@ -36,7 +36,7 @@ func splitText(text string, size int) []string {
 }
 
 func main() {
-	var n = flag.Int("n", 20, "number of letters per line")
+	var n = flag.Int("n", 70, "number of letters per line")
 	flag.Parse()
 	numChars := n
 	scanner := bufio.NewScanner(os.Stdin)
